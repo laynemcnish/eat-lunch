@@ -1,4 +1,15 @@
-== README
+== Bartinder
+
+How to get started:
+Heroku: 
+
+Frontend Development Workflow Tips:
+* First start your rails server: rails s
+* Next start Browser-Sync: npm run-script browser-sync
+* Visit localhost:3001
+* Voila! Every time you save one of the watched files, Browsersync will reload the page automatically.
+
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
