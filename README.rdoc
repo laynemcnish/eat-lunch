@@ -1,39 +1,27 @@
 == Bartinder
+https://bar-tinder.herokuapp.com/
 
 How to get started:
-Heroku: 
+* bundle install
+* npm install
+* rails s
+* npm run-script browser-sync
+
+Adding new gems or modules:
+* Add gems to the Gemfile and run bundle install
+* Add React NPM packages to package.json
+
+Possible APIs:
+* Yelp - Find the bars
+* Twilio - Text your friends your location
+* Uber - Call a ride
+* Google - Get walking directions
+
+Possible Plugins:
+* Photo Slideshow: https://github.com/dowjones/react-picture-show
 
 Frontend Development Workflow Tips:
 * First start your rails server: rails s
 * Next start Browser-Sync: npm run-script browser-sync
 * Visit localhost:3001
 * Voila! Every time you save one of the watched files, Browsersync will reload the page automatically.
-
-
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
