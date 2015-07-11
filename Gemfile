@@ -12,6 +12,7 @@ gem 'therubyracer'
 gem 'foreigner'
 gem 'httpclient'
 gem 'jbuilder'
+gem 'geocoder'
 
 # Front end
 
