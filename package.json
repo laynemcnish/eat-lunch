@@ -1,7 +1,6 @@
 {
   "name": "bartinder",
   "devDependencies": {
-    "browserify": "~9.0.8",
     "browserify-incremental": "^3.0.0",
     "browserify-jsx": "^1.0.0",
     "coffee-react-transform": "~2.0.0",
@@ -54,5 +53,8 @@
     "testPathIgnorePatterns": [
       "preprocessor.js"
     ]
+  },
+  "dependencies": {
+    "browserify": "^10.2.6"
   }
 }
