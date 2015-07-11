@@ -1,0 +1,58 @@
+{
+  "name": "bartinder",
+  "devDependencies": {
+    "browserify": "~9.0.8",
+    "browserify-incremental": "^3.0.0",
+    "browserify-jsx": "^1.0.0",
+    "coffee-react-transform": "~2.0.0",
+    "coffee-reactify": "~>2.1.0",
+    "coffee-script": "^1.8.0",
+    "jest-cli": "^0.2.0",
+    "jquery": "^2.1.3",
+    "lodash": "^3.0.1",
+    "marty": "0.8.12",
+    "moment": "^2.9.0",
+    "react": "^0.13.0",
+    "react-bootstrap": "0.21.2",
+    "react-router": "^0.13.2",
+    "react-tap-event-plugin": "^0.1.6",
+    "react-tools": "^0.13.1",
+    "react-widgets": "^2.6.0",
+    "reactify": "^1.1.0",
+    "classnames": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/jest-cli/bin/jest.js",
+    "browser-sync": "browser-sync start --proxy 0.0.0.0:3000 --files 'app/views/**/*.haml, app/assets/javascripts/**/*.js, app/assets/javascripts/**/*.coffee, app/assets/javascripts/dashboard/**/*.cjsx, app/assets/stylesheets/**/*.sass'"
+  },
+  "jest": {
+    "rootDir": "./app/assets/javascripts",
+    "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
+    "moduleFileExtensions": [
+      "js",
+      "coffee",
+      "cjsx"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "react/addons",
+      "lodash",
+      "jquery",
+      "moment",
+      "underscore",
+      "util",
+      "marty"
+    ],
+    "testFileExtensions": [
+      "js",
+      "coffee",
+      "cjsx"
+    ],
+    "testPathIgnorePatterns": [
+      "preprocessor.js"
+    ]
+  }
+}
