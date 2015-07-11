@@ -17,7 +17,6 @@
     "react-tap-event-plugin": "^0.1.6",
     "react-tools": "^0.13.1",
     "react-widgets": "^2.6.0",
-    "reactify": "^1.1.0",
     "classnames": "^2.1.1"
   },
   "engines": {
@@ -55,6 +54,7 @@
     ]
   },
   "dependencies": {
-    "browserify": "^10.2.6"
+    "browserify": "^10.2.6",
+    "reactify": "^1.1.1"
   }
 }
