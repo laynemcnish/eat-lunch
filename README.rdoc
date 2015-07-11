@@ -4,8 +4,10 @@ https://bar-tinder.herokuapp.com/
 How to get started:
 * bundle install
 * npm install
+* rake db:create db:migrate
 * rails s
 * npm run-script browser-sync
+* run tests with bundle exec rspec
 
 Adding new gems or modules:
 * Add gems to the Gemfile and run bundle install
