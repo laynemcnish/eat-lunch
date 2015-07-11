@@ -1,5 +1,5 @@
 == Bartinder
-https://bar-tinder.herokuapp.com/
+https://eat-lunch.herokuapp.com/
 
 How to get started:
 * bundle install
@@ -14,13 +14,8 @@ Adding new gems or modules:
 * Add React NPM packages to package.json
 
 Possible APIs:
-* Yelp - Find the bars
-* Twilio - Text your friends your location
-* Uber - Call a ride
-* Google - Get walking directions
-
-Possible Plugins:
-* Photo Slideshow: https://github.com/dowjones/react-picture-show
+* Yelp - Find the restaurants
+* Locu - Find menu items for each restaurant
 
 Frontend Development Workflow Tips:
 * First start your rails server: rails s
