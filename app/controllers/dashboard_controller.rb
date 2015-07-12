@@ -10,4 +10,13 @@ class DashboardController < ApplicationController
       format.json { render json: @location.to_json }
     end
   end
+
+  def submit
+    @address = params["address"]
+    @price = params["price"]
+    render :restaurant, address: @address, price: @price
+  end
+
+  def restaurant
+  end
 end

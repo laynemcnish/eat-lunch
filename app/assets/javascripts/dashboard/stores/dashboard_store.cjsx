@@ -10,6 +10,7 @@ DashboardStore = Marty.createStore(
 
   getInitialState: () ->
     location: {zipcode:"HERE"}
+    value: "Hello"
 
   receiveLocation: (location) ->
     @state.location = location
@@ -17,6 +18,16 @@ DashboardStore = Marty.createStore(
 
   getLocation: () ->
     @state.location
+
+  getValue: () ->
+    @state.value
+
+  sendForm: (data) ->
+    creationRequest = $.ajax({
+      type: 'POST',
+      url: "/dashboard/submit",
+      data: data
+    })
 )
 
 module.exports = DashboardStore
