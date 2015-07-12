@@ -29,7 +29,7 @@ class RestaurantService
           phone: biz.respond_to?("phone") ? biz.phone : "no phone number",
           snippet_text: biz.respond_to?("snippet_text") ? biz.snippet_text : "no snippet",
           is_closed: biz.respond_to?("is_closed") ? biz.is_closed : "no hours info",
-      }}
+      }}.reject { |biz| biz[:is_closed] == true}
   end
 
   attr_reader :client
