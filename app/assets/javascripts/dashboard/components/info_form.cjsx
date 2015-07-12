@@ -1,5 +1,4 @@
 React = require('react')
-Marty = require('marty')
 
 DashboardStore = require('../stores/dashboard_store')
 DashboardActionCreators = require('../actions/dashboard_action_creators')
