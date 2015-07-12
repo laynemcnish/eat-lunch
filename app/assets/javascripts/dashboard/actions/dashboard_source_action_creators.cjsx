@@ -4,10 +4,10 @@ DashboardConstants = require('../constants/dashboard_constants')
 
 DashboardSourceActionCreators = Marty.createActionCreators(
   types:
-    receiveBars: DashboardConstants.RECEIVE_BARS
+    receiveLocation: DashboardConstants.RECEIVE_LOCATION
 
-  receiveBars: (bars) ->
-    @dispatch(bars)
+  receiveLocation: (location) ->
+    @dispatch(location)
 )
 
 module.exports = DashboardSourceActionCreators

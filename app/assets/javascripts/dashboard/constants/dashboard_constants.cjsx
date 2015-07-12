@@ -1,9 +1,8 @@
 Marty = require('marty')
 
 DashboardConstants = Marty.createConstants([
-  'RECEIVE_BARS'
-  'REQUEST_BARS'
-  'SELECT_BAR'
+  'RECEIVE_LOCATION'
+  'REQUEST_LOCATION'
 ])
 
 module.exports = DashboardConstants

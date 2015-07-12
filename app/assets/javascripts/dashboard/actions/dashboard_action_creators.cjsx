@@ -4,14 +4,10 @@ DashboardConstants = require('../constants/dashboard_constants')
 
 DashboardActionCreators = Marty.createActionCreators(
   types:
-    setSelectedBar: DashboardConstants.SELECT_BAR
-    requestBars: DashboardConstants.REQUEST_BARS
+    requestLocation: DashboardConstants.REQUEST_LOCATION
 
-  requestBars: () ->
-    DashboardAPI.getAllBars()
-
-  setSelectedBar: (barId) ->
-    @dispatch(barId)
+  requestLocation: () ->
+    DashboardAPI.requestLocation()
 )
 
 module.exports = DashboardActionCreators

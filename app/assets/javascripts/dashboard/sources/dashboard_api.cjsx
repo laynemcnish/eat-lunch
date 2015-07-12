@@ -2,10 +2,10 @@ Marty = require('marty')
 DashboardSourceActionCreators = require('../actions/dashboard_source_action_creators')
 
 DashboardAPI = Marty.createStateSource(
-  getAllBars: () ->
+  requestLocation: () ->
     return new Promise((resolve) ->
-      $.get('YELP_API', (result) =>
-        DashboardSourceActionCreators.receiveBars(result)
+      $.get('/dashboard.json', (result) =>
+        DashboardSourceActionCreators.receiveLocation(result.data)
         resolve()
       )
     )

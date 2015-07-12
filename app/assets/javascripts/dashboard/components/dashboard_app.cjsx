@@ -1,12 +1,12 @@
 React = require('react')
 
+InfoForm = require('./info_form')
+
 DashboardApp = React.createClass
 
   render: () ->
-    <div className="panel-container">
-      <div className="hello_div">
-        <p>Hello</p>
-      </div>
+    <div className="col-md-12">
+      <InfoForm />
     </div>
 
 module.exports = DashboardApp

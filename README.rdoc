@@ -1,4 +1,4 @@
-== Bartinder
+== Eat Lunch
 https://eat-lunch.herokuapp.com/
 
 How to get started:

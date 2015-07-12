@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Bartinder
+module EatLunch
   class Application < Rails::Application
 
     config.browserify_rails.commandline_options = "--transform reactify "

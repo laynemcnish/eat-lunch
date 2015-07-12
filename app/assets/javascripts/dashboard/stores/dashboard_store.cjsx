@@ -9,18 +9,17 @@ _ = require('lodash')
 DashboardStore = Marty.createStore(
 
   handlers:
-    selectBar: DashboardConstants.SELECT_BAR
-    receiveBars: DashboardConstants.RECEIVE_BARS
+    receiveLocation: DashboardConstants.RECEIVE_LOCATION
 
   getInitialState: () ->
-    bars: {}
+    location: {zipcode:"HERE"}
 
-  receiveBars: (bars) ->
-    @state.bars = bars
+  receiveLocation: (location) ->
+    @state.location = location
     @hasChanged()
 
-  getbars: () ->
-    @state.bars
+  getLocation: () ->
+    @state.location
 )
 
 module.exports = DashboardStore
