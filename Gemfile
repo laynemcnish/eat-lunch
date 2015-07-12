@@ -13,6 +13,7 @@ gem 'foreigner'
 gem 'httpclient'
 gem 'jbuilder'
 gem 'geocoder'
+gem 'rails_12factor'
 
 # Front end
 

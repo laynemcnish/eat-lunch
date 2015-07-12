@@ -22,3 +22,10 @@ Frontend Development Workflow Tips:
 * Next start Browser-Sync: npm run-script browser-sync
 * Visit localhost:3001
 * Voila! Every time you save one of the watched files, Browsersync will reload the page automatically.
+
+Deployment:
+* rake assets:precompile
+* Git add -p
+* Git commit -m ""
+* Git push origin master
+* Git push heroku master
