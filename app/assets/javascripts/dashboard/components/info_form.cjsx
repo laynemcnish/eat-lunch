@@ -19,11 +19,10 @@ InfoForm = React.createClass
     DashboardActionCreators.requestLocation()
 
   render: () ->
-    console.log(@state.location)
     <div className="col-md-12">
       <div className="center-block">
         <h1 className="text-center">Eat Lunch</h1>
-        <h3 className="text-center">You are here: {@state.location.zipcode}</h3>
+        <h3 className="text-center">You are here: {@state.location}</h3>
       </div>
     </div>
 
