@@ -5,4 +5,5 @@ Rails.application.routes.draw do
      post 'submit' => 'dashboard#submit'
      get 'restaurant' => 'dashboard#restaurant'
    end
+   resource :restaurants, only: [:show]
 end

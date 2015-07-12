@@ -13,6 +13,8 @@ gem 'foreigner'
 gem 'httpclient'
 gem 'jbuilder'
 gem 'geocoder'
+gem 'yelp', require: 'yelp'
+
 gem 'rails_12factor'
 
 # Front end
@@ -27,6 +29,7 @@ gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'font-awesome-sass'
 
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :test do
   gem 'factory_girl_rails'

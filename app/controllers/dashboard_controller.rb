@@ -1,14 +1,8 @@
 class DashboardController < ApplicationController
-  def index
-
-  end
-
   def show
-    @location = LocationService.new.get_location_by_ip(request)
+    location = LocationService.new.get_location_by_ip(request)
 
-    respond_to do |format|
-      format.json { render json: @location.to_json }
-    end
+    render json: location, status: 200
   end
 
   def submit

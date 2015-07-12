@@ -6,9 +6,9 @@ describe "dashboard API" do
     {"Accept" => "application/json" }
   end
 
-  describe "#index" do
-    it "returns a successful response" do
-      get "/", {}, accept_json
+  describe "#show" do
+    it "returns location data based on request" do
+      get "/dashboard.json", {}, accept_json
 
       expect(response.status).to eq 200
 
