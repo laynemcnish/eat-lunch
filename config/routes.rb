@@ -6,4 +6,5 @@ Rails.application.routes.draw do
      get 'restaurant' => 'dashboard#restaurant'
    end
    resource :restaurants, only: [:show]
+   resource :menus, only: [:create]
 end

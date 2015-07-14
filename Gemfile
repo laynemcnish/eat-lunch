@@ -14,6 +14,7 @@ gem 'httpclient'
 gem 'jbuilder'
 gem 'geocoder'
 gem 'yelp', require: 'yelp'
+gem 'faraday'
 
 gem 'rails_12factor'
 
