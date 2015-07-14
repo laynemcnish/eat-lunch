@@ -24,9 +24,11 @@ class MenuService
     end
     if response.success?
       hash = JSON.parse(response.body, symbolize_names: true)
+      ServiceResponse.build_success(consolidate(hash))
+    else
+      ServiceResponse.build_error("Locu API could not be reached. :(")
     end
 
-    consolidate(hash)
   end
 
   private

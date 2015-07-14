@@ -7,7 +7,7 @@ describe "Menus API" do
   end
 
   describe "POST /menus" do
-    before do
+    it "returns aggregated menu data from a given restaurant name and zip code" do
       menu_response = {:status => "success",
                        :http_status => 200,
                        :venues =>
@@ -58,10 +58,9 @@ describe "Menus API" do
 
       WebMock.stub_request(:post, "https://api.locu.com/v2/venue/search").
           with(:body => "{\"api_key\":\"e5d672eb88d62a5b9fbb66582841974eec87af13\",\"fields\":[\"name\",\"menus\"],\"venue_queries\":[{\"name\":null,\"menus\":{\"$present\":true},\"location\":{\"postal_code\":\"\"}}]}",
-               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+               :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
           to_return(:status => 200, :body => menu_response, :headers => {})
-    end
-    it "returns aggregated menu data from a given restaurant name and zip code" do
+
       post "/menus/get_menu.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
 
       expect(response.status).to eq 200
@@ -91,6 +90,17 @@ describe "Menus API" do
                                                :description => "blood orange vinaigrette, pickles, apples"}],
                              }
                          )
+    end
+
+    it "renders errors if present" do
+      WebMock.stub_request(:post, "https://api.locu.com/v2/venue/search").
+          with(:body => "{\"api_key\":\"e5d672eb88d62a5b9fbb66582841974eec87af13\",\"fields\":[\"name\",\"menus\"],\"venue_queries\":[{\"name\":null,\"menus\":{\"$present\":true},\"location\":{\"postal_code\":\"\"}}]}",
+               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
+
+      expect(JSON.parse(response.body)).to match_array(["Locu API could not be reached. :("])
     end
   end
 end

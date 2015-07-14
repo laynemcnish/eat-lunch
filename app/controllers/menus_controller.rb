@@ -4,9 +4,13 @@ class MenusController < ApplicationController
     name = params[:name]
     postal_code = params[:postal_code]
 
-    menu_data = MenuService.new.get_menu_for_restaurant(name, postal_code)
+    service_response = MenuService.new.get_menu_for_restaurant(name, postal_code)
 
-    render json: menu_data
+    if service_response.success
+      render json: service_response.entity
+    else
+      render json: service_response.errors
+    end
   end
 
 end

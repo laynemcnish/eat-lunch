@@ -59,9 +59,9 @@ describe MenuService do
                :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
           to_return(:status => 200, :body => menu_response, :headers => {})
 
-      data = service.get_menu_for_restaurant("mountain sun", 80302)
+       result = service.get_menu_for_restaurant("mountain sun", 80302)
 
-      expect(data).to eq ({
+      expect(result.entity).to eq ({
                              name: "Volta",
                              menu_items: [{:price => "6",
                                            :name => "Daily Soup",
@@ -82,6 +82,17 @@ describe MenuService do
                                            :name => "Roasted Beets",
                                            :description => "blood orange vinaigrette, pickles, apples"}],
                          })
+    end
+
+    it "returns an error if API cannot be reached" do
+      WebMock.stub_request(:post, "https://api.locu.com/v2/venue/search").
+          with(:body => "{\"api_key\":\"e5d672eb88d62a5b9fbb66582841974eec87af13\",\"fields\":[\"name\",\"menus\"],\"venue_queries\":[{\"name\":\"mountain sun\",\"menus\":{\"$present\":true},\"location\":{\"postal_code\":\"80302\"}}]}",
+               :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      result = service.get_menu_for_restaurant("mountain sun", 80302)
+
+      expect(result.errors).to match_array(["Locu API could not be reached. :("])
     end
   end
 end
