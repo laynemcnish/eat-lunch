@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
     if service_response.success
       render json: service_response.entity
     else
-      render json: service_response.errors
+      render json: service_response.errors, status: :not_found
     end
   end
 
@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
     if service_response.success
       render json: service_response.entity
     else
-      render json: service_response.errors
+      render json: service_response.errors, status: :not_found
     end
   end
 end

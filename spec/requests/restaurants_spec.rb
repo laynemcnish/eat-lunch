@@ -58,6 +58,7 @@ describe "restaurants API" do
     it "returns restaurants" do
       WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
+
       get "/restaurants/get_list.json", {}, accept_json
 
       expect(response.status).to eq 200
@@ -74,6 +75,17 @@ describe "restaurants API" do
                                        :snippet_text => "This is a snippet",
                                        :is_closed => false}
                                   ]
+    end
+
+    it "returns errors if present" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      get "/restaurants/get_list.json", {}, accept_json
+
+      expect(response.status).to eq 404
+
+      expect(JSON.parse(response.body)).to match_array (["Could not connect to Yelp API. :("])
     end
   end
 
@@ -96,6 +108,17 @@ describe "restaurants API" do
                            :phone => "7202614066",
                            :snippet_text => "This is a snippet",
                            :is_closed => false})
+    end
+
+    it "returns errors if present" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/business/tacos-del-norte-boulder").
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      post "/restaurants/get_restaurant.json", {id: "tacos-del-norte-boulder"}, accept_json
+
+      expect(response.status).to eq 404
+
+      expect(JSON.parse(response.body)).to match_array(["Could not connect to Yelp API. :("])
     end
   end
 end
