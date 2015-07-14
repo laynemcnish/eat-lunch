@@ -8,5 +8,7 @@ Rails.application.routes.draw do
      get 'get_list' => 'restaurants#get_list'
      post 'get_restaurant' => 'restaurants#get_restaurant'
    end
-   resource :menus, only: [:create]
+   resource :menus do
+     post 'get_menu' => 'menus#get_menu'
+   end
 end

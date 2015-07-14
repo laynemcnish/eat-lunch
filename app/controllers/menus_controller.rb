@@ -1,6 +1,6 @@
 class MenusController < ApplicationController
 
-  def create
+  def get_menu
     name = params[:name]
     postal_code = params[:postal_code]
 

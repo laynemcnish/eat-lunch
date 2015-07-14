@@ -62,7 +62,7 @@ describe "Menus API" do
           to_return(:status => 200, :body => menu_response, :headers => {})
     end
     it "returns aggregated menu data from a given restaurant name and zip code" do
-      post "/menus.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
+      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
 
       expect(response.status).to eq 200
 
