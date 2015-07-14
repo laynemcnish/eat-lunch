@@ -4,16 +4,24 @@ class RestaurantsController < ApplicationController
 
     city = location.city
 
-    restaurants = RestaurantService.new.search_by_city(city)
+    service_response = RestaurantService.new.search_by_city(city)
 
-    render json: restaurants
+    if service_response.success
+      render json: service_response.entity
+    else
+      render json: service_response.errors
+    end
   end
 
   def get_restaurant
     id = params[:id]
 
-    restaurant = RestaurantService.new.search_by_business_id(id)
+    service_response = RestaurantService.new.search_by_business_id(id)
 
-    render json: restaurant
+    if service_response.success
+      render json: service_response.entity
+    else
+      render json: service_response.errors
+    end
   end
 end

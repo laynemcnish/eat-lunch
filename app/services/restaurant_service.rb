@@ -10,24 +10,41 @@ class RestaurantService
   end
 
   def search_by_city(city)
-    params = { term: 'food',
-               limit: 5
+    params = {term: 'food',
+              limit: 5
     }
+
     response = client.search(city, params).businesses
 
-    consolidate(response)
+    if response[0].respond_to?("name")
+      result = consolidate(response)
+      ServiceResponse.build_success(result)
+    end
+
+  rescue NoMethodError
+    build_yelp_error
   end
 
   def search_by_business_id(business)
     response = client.business(business)
 
-    consolidate([response])[0]
+    if response.respond_to?("name")
+      result = consolidate([response])[0]
+      ServiceResponse.build_success(result)
+    end
+
+  rescue NoMethodError
+    build_yelp_error
   end
 
   private
 
+  def build_yelp_error
+    ServiceResponse.build_error("Could not connect to Yelp API. :(")
+  end
+
   def consolidate(response)
-    response.map {|biz|
+    response.map { |biz|
       {
           name: biz.respond_to?("name") ? biz.name : "nameless",
           rating: biz.respond_to?("rating") ? biz.rating : "unrated",
@@ -37,7 +54,7 @@ class RestaurantService
           snippet_text: biz.respond_to?("snippet_text") ? biz.snippet_text : "no snippet",
           is_closed: biz.respond_to?("is_closed") ? biz.is_closed : "no hours info",
           id: biz.respond_to?("id") ? biz.id : "no biz id",
-      }}.reject { |biz| biz[:is_closed] == true}
+      } }.reject { |biz| biz[:is_closed] == true }
   end
 
   attr_reader :client

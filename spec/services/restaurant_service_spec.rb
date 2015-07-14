@@ -54,14 +54,12 @@ describe RestaurantService do
 
   describe "#search_by_city" do
     it "returns a list of open restaurants" do
-
-
       WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
 
       result = service.search_by_city("Boulder")
 
-      expect(result).to match_array [
+      expect(result.entity).to match_array [
                                         {:id => "tacos-del-norte-boulder",
                                          :name => "Tacos Del Open",
                                          :rating => 5.0,
@@ -72,6 +70,15 @@ describe RestaurantService do
                                          :is_closed => false}
                                     ]
     end
+
+    it "returns an error if the API call is not successful" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      result = service.search_by_city("Boulder")
+
+      expect(result.errors).to match_array ("Could not connect to Yelp API. :(")
+    end
   end
 
   describe "#search_by_business_id" do
@@ -81,7 +88,7 @@ describe RestaurantService do
 
       result = service.search_by_business_id("restaurant-id")
 
-      expect(result).to eq ({:id => "tacos-del-norte-boulder",
+      expect(result.entity).to eq ({:id => "tacos-del-norte-boulder",
                              :name => "Tacos Del Open",
                              :rating => 5.0,
                              :review_count => 14,
@@ -89,6 +96,15 @@ describe RestaurantService do
                              :phone => "7202614066",
                              :snippet_text => "This is a snippet",
                              :is_closed => false})
+    end
+
+    it "returns an error if the API call is not successful" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/business/restaurant-id").
+          to_return(:status => 500, :body => {}.to_json, :headers => {})
+
+      result = service.search_by_business_id("restaurant-id")
+
+      expect(result.errors).to match_array ("Could not connect to Yelp API. :(")
     end
   end
 end
