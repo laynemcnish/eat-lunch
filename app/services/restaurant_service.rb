@@ -9,7 +9,7 @@ class RestaurantService
     @client = client
   end
 
-  def search(city)
+  def search_by_city(city)
     params = { term: 'food',
                limit: 5
     }
@@ -17,6 +17,13 @@ class RestaurantService
 
     consolidate(response)
   end
+
+  def search_by_business_id(business)
+    response = client.business(business)
+
+    consolidate([response])[0]
+  end
+
   private
 
   def consolidate(response)
@@ -29,6 +36,7 @@ class RestaurantService
           phone: biz.respond_to?("phone") ? biz.phone : "no phone number",
           snippet_text: biz.respond_to?("snippet_text") ? biz.snippet_text : "no snippet",
           is_closed: biz.respond_to?("is_closed") ? biz.is_closed : "no hours info",
+          id: biz.respond_to?("id") ? biz.id : "no biz id",
       }}.reject { |biz| biz[:is_closed] == true}
   end
 

@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
    resource :dashboard, controller: :dashboard do
      post 'submit' => 'dashboard#submit'
-     get 'restaurant' => 'dashboard#restaurant'
    end
-   resource :restaurants, only: [:show]
+   resource :restaurants do
+     get 'get_list' => 'restaurants#get_list'
+     post 'get_restaurant' => 'restaurants#get_restaurant'
+   end
    resource :menus, only: [:create]
 end
