@@ -10,7 +10,4 @@ class DashboardController < ApplicationController
     @price = params["price"]
     render :restaurant, address: @address, price: @price
   end
-
-  def restaurant
-  end
 end
