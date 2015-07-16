@@ -19,6 +19,10 @@ describe MenuService do
                                                      :type => "ITEM",
                                                      :name => "Daily Soup",
                                                      :description => "selection changes daily"},
+                                                    {:price => "60",
+                                                     :type => "ITEM",
+                                                     :name => "Daily Soup",
+                                                     :description => "TOO EXPENSIVE"},
                                                     {:price => "6",
                                                      :type => "ITEM",
                                                      :name => "Skordiala Dip",
@@ -59,7 +63,7 @@ describe MenuService do
                :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
           to_return(:status => 200, :body => menu_response, :headers => {})
 
-       result = service.get_menu_for_restaurant("mountain sun", 80302)
+       result = service.get_menu_for_restaurant("mountain sun", "80302", "51")
 
       expect(result.entity).to eq ({
                              name: "Volta",
@@ -90,7 +94,7 @@ describe MenuService do
                :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
           to_return(:status => 500, :body => {}.to_json, :headers => {})
 
-      result = service.get_menu_for_restaurant("mountain sun", 80302)
+      result = service.get_menu_for_restaurant("mountain sun", "80302", "78")
 
       expect(result.errors).to match_array(["Locu API could not be reached. :("])
     end

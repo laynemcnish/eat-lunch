@@ -7,7 +7,7 @@ describe "Menus API" do
   end
 
   describe "POST /menus" do
-    it "returns aggregated menu data from a given restaurant name and zip code" do
+    it "returns aggregated menu data from a given restaurant name, zip code" do
       menu_response = {:status => "success",
                        :http_status => 200,
                        :venues =>
@@ -25,6 +25,10 @@ describe "Menus API" do
                                                      :type => "ITEM",
                                                      :name => "Skordiala Dip",
                                                      :description => "potato, walnut, garlic, crostini"},
+                                                    {:price => "60",
+                                                     :type => "ITEM",
+                                                     :name => "Skordiala Dip",
+                                                     :description => "this item will not show up"},
                                                     {:price => "6",
                                                      :type => "ITEM",
                                                      :name => "Fries",
@@ -57,11 +61,11 @@ describe "Menus API" do
                              :name => "Volta"}]}.to_json
 
       WebMock.stub_request(:post, "https://api.locu.com/v2/venue/search").
-          with(:body => "{\"api_key\":\"e5d672eb88d62a5b9fbb66582841974eec87af13\",\"fields\":[\"name\",\"menus\"],\"venue_queries\":[{\"name\":null,\"menus\":{\"$present\":true},\"location\":{\"postal_code\":\"\"}}]}",
-               :headers => {'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type' => 'application/json', 'User-Agent' => 'Faraday v0.9.1'}).
+          with(:body => "{\"api_key\":\"e5d672eb88d62a5b9fbb66582841974eec87af13\",\"fields\":[\"name\",\"menus\"],\"venue_queries\":[{\"name\":\"Volta\",\"menus\":{\"$present\":true},\"location\":{\"postal_code\":\"80302\"}}]}",
+               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
           to_return(:status => 200, :body => menu_response, :headers => {})
 
-      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
+      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302", price: "59"}, accept_json
 
       expect(response.status).to eq 200
 
@@ -98,7 +102,7 @@ describe "Menus API" do
                :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Faraday v0.9.1'}).
           to_return(:status => 500, :body => {}.to_json, :headers => {})
 
-      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302"}.to_json, accept_json
+      post "/menus/get_menu.json", {name: "Volta", postal_code: "80302", price: "88"}.to_json, accept_json
 
       expect(JSON.parse(response.body)).to match_array(["Locu API could not be reached. :("])
     end
