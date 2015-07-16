@@ -55,33 +55,73 @@ describe "restaurants API" do
   end
 
   describe "#get_list" do
-    it "returns restaurants" do
-      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
+    it "returns restaurants with from the city provided" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
 
-      get "/restaurants/get_list.json", {}, accept_json
+      params = {
+          city: "Boulder",
+          price: 100
+      }
+
+      post "/restaurants/get_list.json", params, accept_json
 
       expect(response.status).to eq 200
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data).to match_array [
-                                      {:id => "tacos-del-norte-boulder",
-                                       :name => "Tacos Del Open",
-                                       :rating => 5.0,
-                                       :review_count => 14,
-                                       :url => "http://www.yelp.com/biz/tacos-del-norte-boulder",
-                                       :phone => "7202614066",
-                                       :snippet_text => "This is a snippet",
-                                       :is_closed => false}
-                                  ]
+      expect(data).to eq ({:restaurants =>
+                               [
+                                   {:id => "tacos-del-norte-boulder",
+                                    :name => "Tacos Del Open",
+                                    :rating => 5.0,
+                                    :review_count => 14,
+                                    :url => "http://www.yelp.com/biz/tacos-del-norte-boulder",
+                                    :phone => "7202614066",
+                                    :snippet_text => "This is a snippet",
+                                    :is_closed => false}
+                               ],
+                           :city => "Boulder",
+                           :price => "100"
+                         })
+    end
+
+    it "returns restaurants from city returned by IP if city not provided" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
+          to_return(:status => 200, :body => search_response, :headers => {})
+
+      params = {
+          city: "",
+          price: 100
+      }
+
+      post "/restaurants/get_list.json", params, accept_json
+
+      expect(response.status).to eq 200
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data).to eq ({:restaurants =>
+                               [
+                                   {:id => "tacos-del-norte-boulder",
+                                    :name => "Tacos Del Open",
+                                    :rating => 5.0,
+                                    :review_count => 14,
+                                    :url => "http://www.yelp.com/biz/tacos-del-norte-boulder",
+                                    :phone => "7202614066",
+                                    :snippet_text => "This is a snippet",
+                                    :is_closed => false}
+                               ],
+                           :city => "",
+                           :price => "100"
+                         })
     end
 
     it "returns errors if present" do
       WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
           to_return(:status => 500, :body => {}.to_json, :headers => {})
 
-      get "/restaurants/get_list.json", {}, accept_json
+      post "/restaurants/get_list.json", {}, accept_json
 
       expect(response.status).to eq 404
 

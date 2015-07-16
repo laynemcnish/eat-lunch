@@ -25,7 +25,7 @@ DashboardStore = Marty.createStore(
   sendForm: (data) ->
     creationRequest = $.ajax({
       type: 'POST',
-      url: "/dashboard/submit",
+      url: "/restaurants/get_list",
       data: data
     })
 )

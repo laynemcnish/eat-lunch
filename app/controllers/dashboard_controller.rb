@@ -4,10 +4,4 @@ class DashboardController < ApplicationController
 
     render json: location, status: 200
   end
-
-  def submit
-    @address = params["address"]
-    @price = params["price"]
-    render :restaurant, address: @address, price: @price
-  end
 end
