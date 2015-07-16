@@ -55,13 +55,13 @@ describe "restaurants API" do
   end
 
   describe "#get_list" do
-    it "returns restaurants with from the city provided" do
-      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
+    it "returns restaurants with from the postal code provided" do
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=80302&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
 
       params = {
-          city: "Boulder",
-          price: 100
+          postal_code: "80302",
+          price: "100"
       }
 
       post "/restaurants/get_list.json", params, accept_json
@@ -81,12 +81,12 @@ describe "restaurants API" do
                                     :snippet_text => "This is a snippet",
                                     :is_closed => false}
                                ],
-                           :city => "Boulder",
+                           :postal_code => "80302",
                            :price => "100"
                          })
     end
 
-    it "returns restaurants from city returned by IP if city not provided" do
+    it "returns restaurants from postal_code returned by IP if city not provided" do
       WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
 
@@ -112,7 +112,7 @@ describe "restaurants API" do
                                     :snippet_text => "This is a snippet",
                                     :is_closed => false}
                                ],
-                           :city => "",
+                           :postal_code => "",
                            :price => "100"
                          })
     end

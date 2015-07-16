@@ -1,14 +1,14 @@
 class RestaurantsController < ApplicationController
   def get_list
-    city = params[:city].present? ? params[:city] : LocationService.new.get_location_by_ip(request).city
+    postal_code = params[:postal_code].present? ? params[:postal_code] : LocationService.new.get_location_by_ip(request).postal_code
     price = params[:price]
 
-    service_response = RestaurantService.new.search_by_city(city)
+    service_response = RestaurantService.new.search_by_postal_code(postal_code)
 
     if service_response.success
       render json: {
                  restaurants: service_response.entity,
-                 city: city,
+                 postal_code: postal_code,
                  price: price
              }
     else

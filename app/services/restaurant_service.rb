@@ -9,12 +9,12 @@ class RestaurantService
     @client = client
   end
 
-  def search_by_city(city)
+  def search_by_postal_code(postal_code)
     params = {term: 'food',
               limit: 5
     }
 
-    response = client.search(city, params).businesses
+    response = client.search(postal_code, params).businesses
 
     if response[0].respond_to?("name")
       result = consolidate(response)

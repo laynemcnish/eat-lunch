@@ -52,12 +52,12 @@ describe RestaurantService do
       "is_closed" => false
   }.to_json }
 
-  describe "#search_by_city" do
+  describe "#search_by_postal_code" do
     it "returns a list of open restaurants" do
-      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=80302&term=food").
           to_return(:status => 200, :body => search_response, :headers => {})
 
-      result = service.search_by_city("Boulder")
+      result = service.search_by_postal_code("80302")
 
       expect(result.entity).to match_array [
                                         {:id => "tacos-del-norte-boulder",
@@ -72,10 +72,10 @@ describe RestaurantService do
     end
 
     it "returns an error if the API call is not successful" do
-      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=Boulder&term=food").
+      WebMock.stub_request(:get, "http://api.yelp.com/v2/search?limit=5&location=80302&term=food").
           to_return(:status => 500, :body => {}.to_json, :headers => {})
 
-      result = service.search_by_city("Boulder")
+      result = service.search_by_postal_code("80302")
 
       expect(result.errors).to match_array ("Could not connect to Yelp API. :(")
     end

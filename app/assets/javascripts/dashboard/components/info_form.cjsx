@@ -20,11 +20,11 @@ InfoForm = React.createClass
 
   handleSubmit: (event) ->
     event.preventDefault()
-    city = @refs.city.getDOMNode().value
+    postal_code = @refs.postal_code.getDOMNode().value
     price = @refs.price.getDOMNode().value
-    @refs.city.getDOMNode().value = ''
+    @refs.postal_code.getDOMNode().value = ''
     @refs.price.getDOMNode().value = ''
-    data = {city: city, price: price}
+    data = {postal_code: postal_code, price: price}
     DashboardStore.sendForm(data)
 
   render: () ->
@@ -34,8 +34,8 @@ InfoForm = React.createClass
         <div className="col-md-6">
           <form className="info-form form-horizontal" onSubmit={@handleSubmit}>
             <div className="form-group">
-              <label>City</label>
-              <input className="form-control input-lg city" type="text" name="city" ref="city" defaultValue="#{@state.location.ip}" onChange={@handleCityChange} />
+              <label>Zip code</label>
+              <input className="form-control input-lg postal_code" type="text" name="postal_code" ref="postal_code" defaultValue="#{@state.location.ip}" onChange={@handlePostal_codeChange} />
             </div>
             <div className="form-group">
               <label>Price</label>
