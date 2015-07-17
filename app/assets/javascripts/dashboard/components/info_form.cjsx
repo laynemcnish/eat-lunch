@@ -24,13 +24,18 @@ InfoForm = React.createClass
     price = @refs.price.getDOMNode().value
     @refs.postal_code.getDOMNode().value = ''
     @refs.price.getDOMNode().value = ''
+    @restaurants = "hi"
     data = {postal_code: postal_code, price: price}
-    DashboardStore.sendForm(data)
+    DashboardStore.sendForm(data).then((response) ->
+      @restaurants = response.restaurants
+      console.log(@restaurants)
+    )
 
   render: () ->
     <div className="col-md-12">
       <h1 className="text-center">Eat Lunch</h1>
         <div className="col-md-3"></div>
+          <p> {@restaurants} </p>
         <div className="col-md-6">
           <form className="info-form form-horizontal" onSubmit={@handleSubmit}>
             <div className="form-group">
@@ -47,5 +52,6 @@ InfoForm = React.createClass
           </form>
         </div>
       </div>
+
 
 module.exports = InfoForm
