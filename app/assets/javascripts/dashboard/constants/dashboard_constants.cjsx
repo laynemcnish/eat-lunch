@@ -5,6 +5,7 @@ DashboardConstants = Marty.createConstants([
   'RECEIVE_RESTAURANTS'
   'REQUEST_LOCATION'
   'REQUEST_RESTAURANTS'
+  'PICK_RANDOM_RESTAURANT'
 ])
 
 module.exports = DashboardConstants

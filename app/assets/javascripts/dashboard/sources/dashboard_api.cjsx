@@ -9,6 +9,13 @@ DashboardAPI = Marty.createStateSource(
         resolve()
       )
     )
+
+  sendForm: (data) ->
+    return new Promise((resolve) ->
+      $.post("/restaurants/get_list.json", data, (response) =>
+        DashboardSourceActionCreators.receiveRestaurants(response.restaurants)
+        resolve())
+      )
 )
 
 module.exports = DashboardAPI

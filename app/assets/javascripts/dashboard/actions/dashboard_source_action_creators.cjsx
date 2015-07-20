@@ -12,6 +12,7 @@ DashboardSourceActionCreators = Marty.createActionCreators(
 
   receiveRestaurants: (restaurants) ->
     @dispatch(restaurants)
+
 )
 
 

@@ -8,21 +8,45 @@ DashboardState = Marty.createStateMixin(
   listenTo: DashboardStore
   getState: () ->
     return {
-      restaurants: DashboardStore.getRestaurants()
+      restaurants: DashboardStore.getRestaurants(),
+      randomRestaurant: DashboardStore.getRandomRestaurant(),
+      showRestaurant: DashboardStore.getShowRestaurant()
   }
 )
 
 RestaurantsList= React.createClass
   mixins: [DashboardState]
 
-  componentDidMount: () ->
-    DashboardActionCreators.requestRestaurants()
 
   render: () ->
-    <div>
-      <h1>Restaurants</h1>
-      <p>{@state.restaurants} </p>
+    className = if @state.showRestaurant then "on" else "hide"
+    className += " col-md-12"
 
+    <div className={className}>
+      <h1 className="text-center">You will be eating at:</h1>
+      <div className="col-md-3"></div>
+      <div className="col-md-6">
+
+        <h2 className="text-center">{@state.randomRestaurant.name}</h2>
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
+          <div className="row">
+            <img src={@state.randomRestaurant.rating_img_url} className="center-block"} />
+          </div>
+          <br/>
+          <div className="row">
+            <img src={@state.randomRestaurant.image_url} className="center-block"} />
+          </div>
+          <br />
+          <div className="row">
+            <div className="text-center">
+              <a href="https://www.google.com/maps/dir/Current+Location/#{@state.randomRestaurant.name}" target="_blank">Get Directions</a>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4"></div>
+      </div>
+      <div className="col-md-3"></div>
     </div>
 
 module.exports = RestaurantsList

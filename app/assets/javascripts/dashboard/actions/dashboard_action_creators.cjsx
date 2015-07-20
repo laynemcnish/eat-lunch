@@ -6,13 +6,13 @@ DashboardConstants = require('../constants/dashboard_constants')
 DashboardActionCreators = Marty.createActionCreators(
   types:
     requestLocation: DashboardConstants.REQUEST_LOCATION
-    requestRestaurants: DashboardConstants.REQUEST_RESTAURANTS
+    sendForm: DashboardConstants.SEND_FORM
 
   requestLocation: () ->
     DashboardAPI.requestLocation()
 
-  requestRestaurants: () ->
-    DashboardStore.requestRestaurants()
+  sendForm: () ->
+    DashboardAPI.sendForm()
 )
 
 module.exports = DashboardActionCreators

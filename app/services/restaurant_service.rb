@@ -11,7 +11,7 @@ class RestaurantService
 
   def search_by_postal_code(postal_code)
     params = {term: 'food',
-              limit: 5
+              limit: 15
     }
 
     response = client.search(postal_code, params).businesses
@@ -54,6 +54,8 @@ class RestaurantService
           snippet_text: biz.respond_to?("snippet_text") ? biz.snippet_text : "no snippet",
           is_closed: biz.respond_to?("is_closed") ? biz.is_closed : "no hours info",
           id: biz.respond_to?("id") ? biz.id : "no biz id",
+          image_url: biz.respond_to?("image_url") ? biz.image_url : "no biz image",
+          rating_img_url: biz.respond_to?("rating_img_url") ? biz.rating_img_url : "no biz rating img_url"
       } }.reject { |biz| biz[:is_closed] == true }
   end
 

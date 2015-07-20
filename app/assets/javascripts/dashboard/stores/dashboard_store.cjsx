@@ -12,6 +12,8 @@ DashboardStore = Marty.createStore(
   getInitialState: () ->
     location: {zipcode:"HERE"}
     restaurants: []
+    randomRestaurant: {}
+    showRestaurant: false
     value: "Hello"
 
   receiveLocation: (location) ->
@@ -20,24 +22,35 @@ DashboardStore = Marty.createStore(
 
   receiveRestaurants: (restaurants) ->
     @state.restaurants = restaurants
+    @pickRandomRestaurant(restaurants)
+    @toggleRestaurantPanel()
     @hasChanged()
+
+  toggleRestaurantPanel: () ->
+    if @state.showRestaurant is false
+      @state.showRestaurant = true
+      @hasChanged()
+    else
+      @state.showRestaurant = false
+      @hasChanged()
 
   getLocation: () ->
     @state.location
 
+  getShowRestaurant: () ->
+    @state.showRestaurant
+
   getRestaurants: () ->
     @state.restaurants
 
+  getRandomRestaurant: () ->
+    @state.randomRestaurant
+
+  pickRandomRestaurant: (restaurants) ->
+    @state.randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)]
+
   getValue: () ->
     @state.value
-
-  sendForm: (data) ->
-    return new Promise((resolve) ->
-      $.post("/restaurants/get_list.json", data, (response) =>
-        console.log(response)
-        DashboardSourceActionCreators.receiveRestaurants(response.restaurants)
-        resolve())
-      )
 
 )
 
