@@ -2,7 +2,7 @@ class ServiceResponse
   attr_reader :success, :errors
   attr_accessor :entity
 
-  def initialize(entity: nil, success:, errors: [])
+  def initialize(entity: nil, success: nil, errors: [])
     @entity = entity
     @success = success
     @errors = errors
