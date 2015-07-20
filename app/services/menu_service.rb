@@ -9,7 +9,7 @@ class MenuService
     response = conn.post do |req|
       req.url "/v2/venue/search"
       req.headers['Content-Type'] = 'application/json'
-      req.body = {api_key: locu_api_key,
+      req.body = { api_key: locu_api_key,
                   fields: ["name", "menus"],
                   venue_queries: [
                       {
@@ -37,18 +37,22 @@ class MenuService
 
   def consolidate(hash, price_cap)
     menu_items = []
-    hash[:venues][0][:menus][0][:sections].each do |section|
-      section[:subsections].each do |sub|
-        sub[:contents].each do |item|
-          menu_items << {
-              price: item[:price],
-              name: item[:name],
-              description: item[:description]
-          } if item[:price].to_i < price_cap.to_i
+    if hash[:venues].length > 0
+      hash[:venues][0][:menus][0][:sections].each do |section|
+        section[:subsections].each do |sub|
+          sub[:contents].each do |item|
+            menu_items << {
+                price: item[:price],
+                name: item[:name],
+                description: item[:description]
+            } if item[:price].to_i < price_cap.to_i
+          end
         end
       end
+      {name: hash[:venues][0][:name], menu_items: menu_items}
+    else
+      ""
     end
-    {name: hash[:venues][0][:name], menu_items: menu_items}
   end
 
 end

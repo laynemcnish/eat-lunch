@@ -10,24 +10,23 @@ DashboardState = Marty.createStateMixin(
     return {
       restaurants: DashboardStore.getRestaurants(),
       randomRestaurant: DashboardStore.getRandomRestaurant(),
-      showRestaurant: DashboardStore.getShowRestaurant(),
-      showMenu: DashboardStore.getShowMenu(),
-      menu: DashboardStore.getMenu()
+      showRestaurant: DashboardStore.getShowRestaurant()
   }
 )
 
-
 RestaurantsList= React.createClass
   mixins: [DashboardState]
+
 
   render: () ->
     className = if @state.showRestaurant then "active" else "hidden"
     className += " col-md-12"
 
     <div className={className} key="restaurantList">
-      <h1 className="text-center">You will eat at:</h1>
+      <h1 className="text-center">You will be eating at:</h1>
       <div className="col-md-3"></div>
       <div className="col-md-6">
+
         <h2 className="text-center">{@state.randomRestaurant.name}</h2>
         <div className="col-md-4"></div>
         <div className="col-md-4">
@@ -36,7 +35,7 @@ RestaurantsList= React.createClass
           </div>
           <br/>
           <div className="row">
-            <img className="restaurantImg" src={@state.randomRestaurant.image_url} className="center-block"} />
+            <img src={@state.randomRestaurant.image_url} className="center-block"} />
           </div>
           <br />
           <div className="row">

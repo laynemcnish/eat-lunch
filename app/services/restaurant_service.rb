@@ -55,7 +55,8 @@ class RestaurantService
           is_closed: biz.respond_to?("is_closed") ? biz.is_closed : "no hours info",
           id: biz.respond_to?("id") ? biz.id : "no biz id",
           image_url: biz.respond_to?("image_url") ? biz.image_url : "no biz image",
-          rating_img_url: biz.respond_to?("rating_img_url") ? biz.rating_img_url : "no biz rating img_url"
+          rating_img_url: biz.respond_to?("rating_img_url") ? biz.rating_img_url : "no biz rating img_url",
+          postal_code: biz.respond_to?("location") ? biz.location.postal_code : "no postal code"
       } }.reject { |biz| biz[:is_closed] == true }
   end
 
