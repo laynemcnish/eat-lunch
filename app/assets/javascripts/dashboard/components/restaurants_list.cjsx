@@ -44,9 +44,9 @@ RestaurantsList= React.createClass
             </div>
           </div>
         </div>
-        <div className="col-md-4"></div>
+        <div className="col-md-4"> </div>
       </div>
-      <div className="col-md-3"></div>
+      <div className="col-md-3"> </div>
     </div>
 
 module.exports = RestaurantsList
